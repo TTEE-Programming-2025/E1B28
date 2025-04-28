@@ -57,3 +57,57 @@ int main() {
     
     return 0;
 }
+void displayWelcomeScreen() {
+    printf("========================================\n");
+    printf("|                                      |\n");
+    printf("|      歡迎使用程式設計作業系統        |\n");
+    printf("|                                      |\n");
+    printf("|          作者:   陳可晴              |\n");
+    printf("|          日期: 2024/04/29            |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("|                                      |\n");
+    printf("========================================\n");
+    printf("\n提示: 預設密碼是 2025\n");
+}
+
+
+int checkPassword() {
+    int password = 2025;
+    int attempts = 0;
+    int input;
+    
+    while (attempts < 3) {
+        displayWelcomeScreen();
+        printf("請輸入4位數密碼 (剩餘嘗試次數: %d): ", 3 - attempts);
+        scanf("%d", &input);
+        
+        if (input == password) {
+            clearScreen();
+            return 1;
+        } else {
+            attempts++;
+            printf("密碼錯誤！\n");
+            if (attempts < 3) {
+                system("pause");
+                clearScreen();
+            }
+        }
+    }
+    
+
+    printf("\n警告！您已連續三次輸入錯誤密碼！\n");
+    printf("系統將自動關閉...\n");
+    system("pause");
+    return 0;
+}
