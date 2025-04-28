@@ -162,9 +162,7 @@ void drawTriangle() {
         }
     }
     
-    printf("\n按任意鍵返回主選單...");
-    getch();
-    clearScreen();
+    
 }
 
 
@@ -191,9 +189,7 @@ void showMultiplicationTable() {
         }
     }
     
-    printf("\n按任意鍵返回主選單...");
-    getch();
-    clearScreen();
+    
 }
 
 
