@@ -1,5 +1,7 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h> 
+#include <conio.h> 
+
 
 void displayWelcomeScreen();
 int checkPassword();
@@ -57,6 +59,7 @@ int main() {
     
     return 0;
 }
+
 void displayWelcomeScreen() {
     printf("========================================\n");
     printf("|                                      |\n");
@@ -110,4 +113,91 @@ int checkPassword() {
     printf("系統將自動關閉...\n");
     system("pause");
     return 0;
+}
+
+void displayMainMenu() {
+    printf("========================================\n");
+    printf("|          主選單                     |\n");
+    printf("|                                      |\n");
+    printf("|  a. 畫出直角三角形                  |\n");
+    printf("|  b. 顯示乘法表                      |\n");
+    printf("|  c. 結束                            |\n");
+    printf("|                                      |\n");
+    printf("========================================\n");
+}
+
+
+void drawTriangle() {
+    clearScreen();
+    char inputChar;
+    
+    while (1) {
+        printf("請輸入一個a到n的字元: ");
+        scanf(" %c", &inputChar);
+        
+        if (inputChar >= 'a' && inputChar <= 'n') {
+         
+            int rows = inputChar - 'a' + 1;
+            printf("\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j <= i; j++) {
+                    printf("%c ", 'a' + j);
+                }
+                printf("\n");
+            }
+            break;
+        } else if (inputChar >= 'A' && inputChar <= 'N') {
+           
+            int rows = inputChar - 'A' + 1;
+            printf("\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j <= i; j++) {
+                    printf("%c ", 'A' + j);
+                }
+                printf("\n");
+            }
+            break;
+        } else {
+            printf("錯誤！請輸入a到n之間的字元！\n");
+        }
+    }
+    
+    printf("\n按任意鍵返回主選單...");
+    getch();
+    clearScreen();
+}
+
+
+void showMultiplicationTable() {
+    clearScreen();
+    int n;
+    
+    while (1) {
+        printf("請輸入一個1到9的整數: ");
+        scanf("%d", &n);
+        
+        if (n >= 1 && n <= 9) {
+            printf("\n  %d x %d 乘法表\n", n, n);
+            printf("==================\n");
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n; j++) {
+                    printf("%d x %d = %-2d  ", i, j, i * j);
+                }
+                printf("\n");
+            }
+            break;
+        } else {
+            printf("錯誤！請輸入1到9之間的整數！\n");
+        }
+    }
+    
+    printf("\n按任意鍵返回主選單...");
+    getch();
+    clearScreen();
+}
+
+
+void clearScreen() {
+    system("cls");
+   
 }
