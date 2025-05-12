@@ -63,3 +63,88 @@ int main() {
 
     return 0;
 }
+void printWelcome() {
+    for (int i = 0; i < 20; i++) {
+        printf("=== 歡迎使用訂位系統 ===\n");
+    }
+}
+
+
+int checkPassword() {
+    int attempt = 0, user_input;
+
+    while (attempt < MAX_ATTEMPTS) {
+        printf("請輸入四位數密碼：");
+        scanf("%d", &user_input);
+        getchar(); // 吃掉換行
+        if (user_input == PASSWORD) {
+            printf("密碼正確，歡迎進入系統！\n");
+            return 1;
+        } else {
+            printf("密碼錯誤！\n");
+            attempt++;
+        }
+    }
+    return 0;
+}
+
+void showMenu() {
+    printf("\n----------[訂位系統]----------\n");
+    printf("|  a. 查看可用座位            |\n");
+    printf("|  b. 系統自動安排座位        |\n");
+    printf("|  c. 自行選擇座位            |\n");
+    printf("|  d. 離開系統                |\n");
+    printf("--------------------------------\n");
+}
+
+
+void generateRandomSeats() {
+    int count = 0;
+    memset(seats, '-', sizeof(seats));
+
+    while (count < 10) {
+        int r = rand() % ROWS;
+        int c = rand() % COLS;
+        if (seats[r][c] == '-') {
+            seats[r][c] = '*';
+            count++;
+        }
+    }
+}
+
+
+void showSeats() {
+    printf(" \\123456789\n");
+    for (int r = ROWS - 1; r >= 0; r--) {
+        printf("%d", r + 1);
+        for (int c = 0; c < COLS; c++) {
+            printf("%c", seats[r][c]);
+        }
+        printf("\n");
+    }
+}
+
+
+void waitForEnter() {
+    printf("按 Enter 鍵回到主選單...");
+    getchar();
+}
+
+
+void arrangeSeats() {
+    int count;
+    int r[4], c[4];
+
+    printf("請問需要幾個座位 (1~4)：");
+    scanf("%d", &count);
+    getchar();
+    if (count < 1 || count > 4) {
+        printf("輸入人數無效。\n");
+        return;
+    }
+
+    if (!findConsecutiveSeats(count, r, c)) {
+        printf("找不到合適的連續座位。\n");
+        return;
+    }
+
