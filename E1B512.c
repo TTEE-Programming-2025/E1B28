@@ -211,4 +211,60 @@ void confirmArrangement(int r[], int c[], int count) {
     for (int i = 0; i < count; i++)
         seats[r[i]][c[i]] = '*';
 }
+void chooseByUser() {
+    int n;
+    printf("請輸入要選幾個座位 (1~4)：");
+    scanf("%d", &n);
+    getchar();
+    if (n < 1 || n > 4) {
+        printf("輸入數量錯誤。\n");
+        return;
+    }
 
+    int r[4], c[4];
+    for (int i = 0; i < n; i++) {
+        while (1) {
+            printf("請輸入第 %d 個座位 (格式：列-行，例如 1-2)：", i + 1);
+            fgets(input, sizeof(input), stdin);
+            if (!isValidFormat(input, &r[i], &c[i]) || !isAvailable(r[i], c[i])) {
+                printf("格式錯誤或座位已被佔用，請重試。\n");
+                continue;
+            }
+
+            int repeated = 0;
+            for (int j = 0; j < i; j++) {
+                if (r[i] == r[j] && c[i] == c[j]) {
+                    repeated = 1;
+                    break;
+                }
+            }
+            if (repeated) {
+                printf("座位重複，請重試。\n");
+                continue;
+            }
+
+            break;
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+        seats[r[i]][c[i]] = '@';
+
+    showSeats();
+    waitForEnter();
+
+    for (int i = 0; i < n; i++)
+        seats[r[i]][c[i]] = '*';
+}
+
+int isValidFormat(const char *s, int *r, int *c) {
+    int row, col;
+    if (sscanf(s, "%d-%d", &row, &col) != 2)
+        return 0;
+    if (row < 1 || row > 9 || col < 1 || col > 9)
+        return 0;
+
+    *r = row - 1;
+    *c = col - 1;
+    return 1;
+}
