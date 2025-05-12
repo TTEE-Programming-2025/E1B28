@@ -147,4 +147,68 @@ void arrangeSeats() {
         printf("找不到合適的連續座位。\n");
         return;
     }
+    for (int i = 0; i < count; i++)
+        seats[r[i]][c[i]] = '@';
+
+    showSeats();
+    printf("是否滿意此安排？(y/n)：");
+    fgets(input, sizeof(input), stdin);
+
+    if (tolower(input[0]) == 'y') {
+        confirmArrangement(r, c, count);
+    } else {
+        for (int i = 0; i < count; i++)
+            seats[r[i]][c[i]] = '-';
+    }
+}
+
+int isAvailable(int r, int c) {
+    return seats[r][c] == '-';
+}
+
+
+int findConsecutiveSeats(int count, int *r_out, int *c_out) {
+
+    for (int r = 0; r < ROWS; r++) {
+        for (int c = 0; c <= COLS - count; c++) {
+            int ok = 1;
+            for (int k = 0; k < count; k++) {
+                if (!isAvailable(r, c + k)) {
+                    ok = 0;
+                    break;
+                }
+            }
+            if (ok) {
+                for (int k = 0; k < count; k++) {
+                    r_out[k] = r;
+                    c_out[k] = c + k;
+                }
+                return 1;
+            }
+        }
+    }
+
+    if (count == 4) {
+        for (int r = 0; r < ROWS - 1; r++) {
+            for (int c = 0; c <= COLS - 2; c++) {
+                if (isAvailable(r, c) && isAvailable(r, c + 1) &&
+                    isAvailable(r + 1, c) && isAvailable(r + 1, c + 1)) {
+                    r_out[0] = r;     c_out[0] = c;
+                    r_out[1] = r;     c_out[1] = c + 1;
+                    r_out[2] = r + 1; c_out[2] = c;
+                    r_out[3] = r + 1; c_out[3] = c + 1;
+                    return 1;
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+void confirmArrangement(int r[], int c[], int count) {
+    for (int i = 0; i < count; i++)
+        seats[r[i]][c[i]] = '*';
+}
 
