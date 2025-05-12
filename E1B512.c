@@ -268,3 +268,18 @@ int isValidFormat(const char *s, int *r, int *c) {
     *c = col - 1;
     return 1;
 }
+
+        printf("是否要繼續使用？(y/n)：");
+        fgets(input, sizeof(input), stdin);
+        char c = tolower(input[0]);
+
+        if (c == 'y')
+            return;
+        else if (c == 'n') {
+            printf("感謝使用，程式結束！\n");
+            exit(0);
+        } else {
+            printf("輸入錯誤，請輸入 y 或 n。\n");
+        }
+    }
+}
