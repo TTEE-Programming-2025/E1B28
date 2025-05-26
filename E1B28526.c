@@ -148,4 +148,34 @@ void show_menu() {
     printf("--------------------------------------\n");
     printf("請選擇功能 (a-e)：");
 }
+int main() {
+    if (!login()) return 0;
+
+    char choice;
+    while (1) {
+        clear_screen();
+        show_menu();
+        scanf(" %c", &choice);
+        switch (choice) {
+            case 'a': enter_grades(); break;
+            case 'b': display_grades(); break;
+            case 'c': search_grades(); break;
+            case 'd': rank_grades(); break;
+            case 'e': {
+                char confirm;
+                printf("確定離開嗎？(y/n)：");
+                scanf(" %c", &confirm);
+                if (confirm == 'y' || confirm == 'Y') {
+                    printf("系統結束，感謝使用。\n");
+                    return 0;
+                }
+                break;
+            }
+            default:
+                printf("無效的選項。\n");
+                getchar(); getchar();
+        }
+    }
+    return 0;
+}
 
