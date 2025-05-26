@@ -70,3 +70,48 @@ void enter_grades() {
     printf("\n資料輸入完成，按任意鍵返回主選單...\n");
     getchar(); getchar();
 }
+
+void display_grades() {
+    clear_screen();
+    if (student_count == 0) {
+        printf("尚未輸入任何學生資料。\n");
+    } else {
+        printf("姓名\t學號\t\t數學\t物理\t英文\t平均\n");
+        for (int i = 0; i < student_count; i++) {
+            printf("%s\t%s\t%.1f\t%.1f\t%.1f\t%.1f\n",
+                   students[i].name, students[i].id,
+                   students[i].math, students[i].physics,
+                   students[i].english, students[i].average);
+        }
+    }
+    printf("\n按任意鍵返回主選單...\n");
+    getchar(); getchar();
+}
+
+void search_grades() {
+    clear_screen();
+    if (student_count == 0) {
+        printf("尚未輸入任何學生資料。\n");
+    } else {
+        char target[20];
+        int found = 0;
+        printf("請輸入欲查詢之學生姓名：");
+        scanf("%s", target);
+        for (int i = 0; i < student_count; i++) {
+            if (strcmp(students[i].name, target) == 0) {
+                printf("\n姓名：%s\n學號：%s\n數學：%.1f\n物理：%.1f\n英文：%.1f\n平均：%.1f\n",
+                       students[i].name, students[i].id,
+                       students[i].math, students[i].physics,
+                       students[i].english, students[i].average);
+                found = 1;
+                break;
+            }
+        }
+        if (!found) {
+            printf("查無此學生。\n");
+        }
+    }
+    printf("\n按任意鍵返回主選單...\n");
+    getchar(); getchar();
+}
+
