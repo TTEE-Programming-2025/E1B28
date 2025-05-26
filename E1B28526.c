@@ -114,4 +114,38 @@ void search_grades() {
     printf("\n按任意鍵返回主選單...\n");
     getchar(); getchar();
 }
+void rank_grades() {
+    clear_screen();
+    if (student_count == 0) {
+        printf("尚未輸入任何學生資料。\n");
+    } else {
+        Student temp;
+        for (int i = 0; i < student_count - 1; i++) {
+            for (int j = i + 1; j < student_count; j++) {
+                if (students[i].average < students[j].average) {
+                    temp = students[i];
+                    students[i] = students[j];
+                    students[j] = temp;
+                }
+            }
+        }
+        printf("排名：\n名次\t姓名\t學號\t\t平均成績\n");
+        for (int i = 0; i < student_count; i++) {
+            printf("%d\t%s\t%s\t%.1f\n", i + 1, students[i].name, students[i].id, students[i].average);
+        }
+    }
+    printf("\n按任意鍵返回主選單...\n");
+    getchar(); getchar();
+}
+
+void show_menu() {
+    printf("------------[Grade System]------------\n");
+    printf("| a. 輸入學生成績                    |\n");
+    printf("| b. 顯示所有成績                    |\n");
+    printf("| c. 查詢指定學生                    |\n");
+    printf("| d. 平均成績排序                    |\n");
+    printf("| e. 離開系統                        |\n");
+    printf("--------------------------------------\n");
+    printf("請選擇功能 (a-e)：");
+}
 
